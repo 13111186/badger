@@ -768,8 +768,7 @@ func containsPrefix(table *table.Table, prefix []byte) bool {
 		// In table iterator's Seek, we assume that key has timestamp in last 8 bytes. We set ts=0,
 		// so that we don't skip the key prefixed with prefix.
 		prefixWithTs := make([]byte, len(prefix)+8)
-		copy(prefixWithTs[:len(prefix)], prefix)
-		prefixWithTs = prefixWithTs[:cap(prefixWithTs)]
+		copy(prefixWithTs, prefix)
 		ti.Seek(prefixWithTs)
 		if bytes.HasPrefix(ti.Key(), prefix) {
 			return true
